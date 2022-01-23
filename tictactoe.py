@@ -1,8 +1,5 @@
 from math import inf as infinity
 from random import choice
-import platform
-import time
-from os import system
 
 AI = 2
 HUMAN = 1
