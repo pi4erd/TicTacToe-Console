@@ -1,8 +1,11 @@
 from math import inf as infinity
-from random import choice
+from random import choice, randint
 
 AI = 2
 HUMAN = 1
+
+EASY, MEDIUM, HARD, IMPOSSIBLE = 0, 1, 2, 3
+DIFFICULTIES = [EASY, MEDIUM, HARD, IMPOSSIBLE]
 
 def valid_move(board, x, y):
     return [x, y] in empty_cells(board)
@@ -83,3 +86,19 @@ def minimax(board, player, depth):
                 best = score
         
     return best
+
+def make_move(board, player, depth, difficulty):
+    if difficulty == 3:
+        return minimax(board, player, depth)
+    elif difficulty == 2:
+        mv = choice(empty_cells(board))
+        mx, my = mv[0], mv[1]
+        return [mx, my, 0] if 0 <= randint(0, 99) < 10 else minimax(board, player, depth)
+    elif difficulty == 1:
+        mv = choice(empty_cells(board))
+        mx, my = mv[0], mv[1]
+        return [mx, my, 0] if 0 <= randint(0, 99) < 40 else minimax(board, player, depth)
+    else:
+        mv = choice(empty_cells(board))
+        mx, my = mv[0], mv[1]
+        return [mx, my, 0]
