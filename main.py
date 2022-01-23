@@ -13,8 +13,7 @@ def render_mtx(m):
 {sf(m[0][2])}|{sf(m[1][2])}|{sf(m[2][2])}
 """)
 
-# TODO: Create minimax based ai
-def ai_output(difficulty): # lets fix AI
+def ai_output(difficulty):
     depth = len(empty_cells(board))
     if depth == 0 or game_over(board):
         return
