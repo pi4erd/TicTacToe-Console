@@ -45,7 +45,7 @@ def player_input(difficulty):
 while True:
     clr_scr()
     diff = int(input("Напишите сложность (0-3, 3 - самое сложное): "))
-    if diff != 0 and diff != 1 and diff != 2 and diff != 3:
+    if not diff in DIFFICULTIES:
         clr_scr()
         print("Неправильная сложность, попробуйте еще раз!")
         input()
