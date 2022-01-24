@@ -42,7 +42,7 @@ def player_input(difficulty):
             print("Это был неправильный ход. Попробуйте еще раз!")
             input()
 
-# TODO: Make graphics or html or something, idk
+# TODO: #2 Make graphics or html or something, idk
 
 while True:
     clr_scr()
