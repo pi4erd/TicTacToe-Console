@@ -1,34 +1,8 @@
-import os
-from random import randint
 from tictactoe import *
 import winsound
 
 board = [[0]*3 for _ in range(3)]
-def sf(s):
-    l = [' ', 'x', 'o']
-    return l[s]
-def render_mtx(m):
-    print(f"""{sf(m[0][0])}|{sf(m[1][0])}|{sf(m[2][0])}
-{sf(m[0][1])}|{sf(m[1][1])}|{sf(m[2][1])}
-{sf(m[0][2])}|{sf(m[1][2])}|{sf(m[2][2])}
-""")
 
-def ai_output(difficulty):
-    depth = len(empty_cells(board))
-    if depth == 0 or game_over(board):
-        return
-    
-    clr_scr()
-    if depth == 9:
-        x = choice([0, 1, 2])
-        y = choice([0, 1, 2])
-    else:
-        move = make_move(board, AI, depth, difficulty)
-        x, y = move[0], move[1]
-    set_move(board, AI, x, y)
-
-def clr_scr():
-    os.system("cls")
 def player_input(difficulty):
     while True:
         try:
@@ -62,7 +36,7 @@ def player_input(difficulty):
             if not set_move(board, HUMAN, x, y):
                 raise ValueError
             
-            ai_output(difficulty)
+            ai_output(board, difficulty)
         except ValueError or IndexError:
             clr_scr()
             print("Это был неправильный ход. Попробуйте еще раз!")

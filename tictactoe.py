@@ -1,3 +1,4 @@
+import os
 from math import inf as infinity
 from random import choice, randint
 
@@ -16,6 +17,33 @@ def set_move(board, player, x, y):
         return True
     else:
         return False
+
+def sf(s):
+    l = [' ', 'x', 'o']
+    return l[s]
+
+def render_mtx(m):
+    print(f"""{sf(m[0][0])}|{sf(m[1][0])}|{sf(m[2][0])}
+{sf(m[0][1])}|{sf(m[1][1])}|{sf(m[2][1])}
+{sf(m[0][2])}|{sf(m[1][2])}|{sf(m[2][2])}
+""")
+
+def clr_scr():
+    os.system("cls")
+
+def ai_output(board, difficulty):
+    depth = len(empty_cells(board))
+    if depth == 0 or game_over(board):
+        return
+    
+    clr_scr()
+    if depth == 9:
+        x = choice([0, 1, 2])
+        y = choice([0, 1, 2])
+    else:
+        move = make_move(board, AI, depth, difficulty)
+        x, y = move[0], move[1]
+    set_move(board, AI, x, y)
 
 def check_win_o(board):
     cols = board[0][0] == board[0][1] == board[0][2] == AI or \
