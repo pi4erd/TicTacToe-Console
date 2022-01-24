@@ -42,6 +42,8 @@ def player_input(difficulty):
             print("Это был неправильный ход. Попробуйте еще раз!")
             input()
 
+# TODO: #1 Make graphics or html or something, idk
+
 while True:
     clr_scr()
     diff = int(input("Напишите сложность (0-3, 3 - самое сложное): "))
