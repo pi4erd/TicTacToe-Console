@@ -45,11 +45,14 @@ def player_input(difficulty):
 while True:
     clr_scr()
     diff = int(input("Напишите сложность (0-3, 3 - самое сложное): "))
-    if not diff in DIFFICULTIES:
+    if not diff in DIFFICULTIES and diff != -1:
         clr_scr()
         print("Неправильная сложность, попробуйте еще раз!")
         input()
         continue
+    elif diff == -1:
+        input("Нажмите Enter чтобы выйти...") # dull input to prevent from instant exit
+        break
     player_input(diff)
     input("Нажмите Enter чтобы выйти...") # dull input to prevent from instant exit
     break
