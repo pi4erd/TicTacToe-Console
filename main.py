@@ -1,5 +1,4 @@
 from tictactoe import *
-import winsound
 
 board = [[0]*3 for _ in range(3)]
 
@@ -15,17 +14,17 @@ def player_input(difficulty):
                 frq = 700 if xw else 400
                 render_mtx(board)
                 print(txt)
-                winsound.Beep(frq, 500)
+                print('\a')
                 break
 
             if len(empty_cells(board)) == 0 and not game_over(board):
                 clr_scr()
                 render_mtx(board)
                 print("Ничья!")
-                winsound.Beep(500, 200)
+                print('\a')
                 break
             
-            winsound.Beep(600, 50)
+            print('\a')
 
             clr_scr()
             render_mtx(board)

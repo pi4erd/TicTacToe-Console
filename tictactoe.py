@@ -29,8 +29,7 @@ def render_mtx(m):
 """)
 
 def clr_scr():
-    os.system("cls")
-
+    os.system("clear")
 def ai_output(board, difficulty):
     depth = len(empty_cells(board))
     if depth == 0 or game_over(board):
