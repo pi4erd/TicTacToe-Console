@@ -1,6 +1,11 @@
+#!/usr/bin/env python3
 from tictactoe import *
 
 board = [[0]*3 for _ in range(3)]
+
+def ask_exit(code: int=0):
+    input("Нажмите Enter чтобы выйти...") # dull input to prevent from instant exit
+    exit(code)
 
 def player_input(difficulty):
     while True:
@@ -41,8 +46,6 @@ def player_input(difficulty):
             print("Это был неправильный ход. Попробуйте еще раз!")
             input()
 
-# TODO: #2 Make graphics or html or something, idk
-
 while True:
     clr_scr()
     diff = int(input("Напишите сложность (0-3, 3 - самое сложное): "))
@@ -52,8 +55,6 @@ while True:
         input()
         continue
     elif diff == -1:
-        input("Нажмите Enter чтобы выйти...") # dull input to prevent from instant exit
-        break
+        ask_exit()
     player_input(diff)
-    input("Нажмите Enter чтобы выйти...") # dull input to prevent from instant exit
-    break
+    ask_exit()
