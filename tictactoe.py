@@ -11,12 +11,25 @@ DIFFICULTIES = [EASY, MEDIUM, HARD, IMPOSSIBLE]
 def valid_move(board, x, y):
     return [x, y] in empty_cells(board)
 
+def valid_move_multi(board, x, y):
+    return [x, y] in empty_cells_multi(board)
+
 def set_move(board, player, x, y):
     if valid_move(board, x, y):
         board[x][y] = player
         return True
     else:
         return False
+
+def set_move_multi(board, player, x, y):
+    if valid_move_multi(board, x, y):
+        board[x][y] = player
+        return True
+    else:
+        return False
+def sf_multi(s: int):
+    l = [' ', 'x', 'o'] # -1 0 1
+    return l[s + 1]
 
 def sf(s):
     l = [' ', 'x', 'o']
@@ -27,7 +40,11 @@ def render_mtx(m):
 {sf(m[0][1])}|{sf(m[1][1])}|{sf(m[2][1])}
 {sf(m[0][2])}|{sf(m[1][2])}|{sf(m[2][2])}
 """)
-
+def render_mtx_multiplayer(m):
+    print(f"""{sf_multi(m[0][0])}|{sf_multi(m[1][0])}|{sf_multi(m[2][0])}
+{sf_multi(m[0][1])}|{sf_multi(m[1][1])}|{sf_multi(m[2][1])}
+{sf_multi(m[0][2])}|{sf_multi(m[1][2])}|{sf_multi(m[2][2])}
+""")
 def clr_scr():
     os.system("clear")
 def ai_output(board, difficulty):
@@ -43,6 +60,17 @@ def ai_output(board, difficulty):
         move = make_move(board, AI, depth, difficulty)
         x, y = move[0], move[1]
     set_move(board, AI, x, y)
+
+def check_win(board, p):
+    cols = board[0][0] == board[0][1] == board[0][2] == p or \
+        board[1][0] == board[1][1] == board[1][2] == p or \
+        board[2][0] == board[2][1] == board[2][2] == p
+    rows = board[0][0] == board[1][0] == board[2][0] == p or \
+        board[0][1] == board[1][1] == board[2][1] == p or \
+        board[0][2] == board[1][2] == board[2][2] == p
+    diags = board[0][0] == board[1][1] == board[2][2] == p or \
+        board[0][2] == board[1][1] == board[2][0] == p
+    return cols or rows or diags
 
 def check_win_o(board):
     cols = board[0][0] == board[0][1] == board[0][2] == AI or \
@@ -66,8 +94,8 @@ def check_win_x(board):
         board[0][2] == board[1][1] == board[2][0] == HUMAN
     return cols or rows or diags
 
-def game_over(board):
-    return check_win_x(board) or check_win_o(board)
+def game_over(board, players):
+    return check_win(board, players[0]) or check_win(board, players[1])
 
 def evaluate(board):
     if check_win_o(board):
@@ -77,6 +105,16 @@ def evaluate(board):
     else:
         score = 0
     return score
+
+def empty_cells_multi(board):
+    cells = []
+
+    for x, row in enumerate(board):
+        for y, cell in enumerate(row):
+            if cell == -1:
+                cells.append([x, y])
+
+    return cells
 
 def empty_cells(board):
     cells = []

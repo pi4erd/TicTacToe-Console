@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 import socket
+import json
+import tictactoe
+import pickle
 
 class Network:
     def __init__(self, host: str, port: int):
@@ -8,22 +11,19 @@ class Network:
         self.port = port
         self.addr = (self.host, self.port)
         self.id = self.connect()
-        print(self.id)
     
     def connect(self):
         try:
-            self.client_connected(self.addr)
+            self.client.connect(self.addr)
             return self.client.recv(2048).decode()
         except:
             pass
     
-    def send(self, data):
+    def send(self, data: str):
         try:
             self.client.send(str.encode(data))
-            return self.client.recv(2048).decode()
+            return pickle.loads(self.client.recv(4096))
         except socket.error as e:
             print(e)
-
-class Player:
-    def __init__(self, player: int):
-        self.player = player
+    def get_player(self):
+        return self.id

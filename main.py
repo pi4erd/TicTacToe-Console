@@ -7,14 +7,16 @@ Made by Devi
 """
 
 from tictactoe import *
+from client import *
+from game import Game, State
 
-board = [[0]*3 for _ in range(3)]
+# board = [[0]*3 for _ in range(3)] # no client-side board allowed
 
 def ask_exit(code: int=0):
     input("Нажмите Enter чтобы выйти...") # dull input to prevent from instant exit
     exit(code)
 
-def player_input(difficulty):
+"""def single_player_input(difficulty): # Used for single player, so disabled for this branch until the end
     while True:
         try:
             xw = check_win_x(board)
@@ -52,8 +54,9 @@ def player_input(difficulty):
             clr_scr()
             print("Это был неправильный ход. Попробуйте еще раз!")
             input()
+"""
 
-while True:
+"""while True: # Old startup, will be changed when adding single player and multiplayer together
     clr_scr()
     diff = int(input("Напишите сложность (0-3, 3 - самое сложное): "))
     if not diff in DIFFICULTIES and diff != -1:
@@ -65,3 +68,73 @@ while True:
         ask_exit()
     player_input(diff)
     ask_exit()
+"""
+
+clientNumber = 0
+
+def get_input(player: int, game: Game):
+    done = False
+    while not done:
+        try:
+            clr_scr()
+            render_mtx_multiplayer(game.board)
+            print("You are '{}'\n".format(sf_multi(player)))
+            x = int(input("Choose column (1-3): ")) - 1
+            y = int(input("Choose row (1-3): ")) - 1
+
+            game.play(player, f"{x}{y}")
+            
+            done = True
+            return f"{x}{y}"
+        except ValueError or IndexError:
+            clr_scr()
+            print("Incorrect move! Try again...")
+            input()
+
+if __name__ == "__main__":
+    n = Network("localhost", 8080)
+    player = int(n.get_player())
+    print("You are", sf_multi(player))
+    print("Wait for your turn...")
+    ended = False   
+    while not ended:
+        try:
+            game: Game = n.send("get")
+        except:
+            print("Couldn't get game")
+            exit(-1)
+        
+        if game.turn == player:
+            state = game.getstate()
+            if state == State.get_state_from_player(player):
+                print("You won!")
+                ended = True
+                continue
+            elif state == State.get_state_from_player(player ^ 1):
+                print("You lost!")
+                ended = True
+                continue
+            elif state == State.TIE:
+                print("Tie!")
+                ended = True
+                continue
+            
+            n.send(get_input(player, game))
+            
+            clr_scr()
+            render_mtx_multiplayer(game.board)
+            print(f"'{sf_multi(player ^ 1)}' turn")
+            state = game.getstate()
+            if state == State.get_state_from_player(player):
+                print("You won!")
+                ended = True
+                continue
+            elif state == State.get_state_from_player(player ^ 1):
+                print("You lost!")
+                ended = True
+                continue
+            elif state == State.TIE:
+                print("Tie!")
+                ended = True
+                continue
+            print("Waiting for other player...")
