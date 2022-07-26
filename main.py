@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+"""
+TicTacToe game in console in python
+
+Made by Devi
+"""
+
 from tictactoe import *
 
 board = [[0]*3 for _ in range(3)]
