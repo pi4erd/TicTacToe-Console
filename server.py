@@ -9,8 +9,8 @@ from game import *
 import pickle
 
 if __name__ == "__main__":
-    host = "localhost"
-    port = 8080
+    host = input("Enter host: ")
+    port = int(input("Enter port: "))
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     try:

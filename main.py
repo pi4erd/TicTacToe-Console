@@ -83,7 +83,9 @@ if __name__ == "__main__":
         clr_scr()
         mode = input("Choose mode to play (multi/single): ")
         if mode == "multi":
-            n = Network("localhost", 8080)
+            host = input("Enter hostname: ")
+            port = int(input("Enter port: "))
+            n = Network(host, port)
             player = int(n.get_player())
             clr_scr()
             print("You are", sf_multi(player))
