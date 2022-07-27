@@ -60,12 +60,6 @@ def single_player_input(difficulty): # Used for single player, so disabled for t
             print("Это был неправильный ход. Попробуйте еще раз!")
             input()
 
-"""while True: # Old startup, will be changed when adding single player and multiplayer together
-    clr_scr()
-    diff = int(input("Напишите сложность (0-3, 3 - самое сложное): "))
-    
-"""
-
 clientNumber = 0
 
 def get_input(player: int, game: Game):
