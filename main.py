@@ -54,6 +54,9 @@ def single_player_input(difficulty):
             print("Incorrect move! Try again...")
             input()
 
+def alert(): # doesn't work, yet
+    print('\a') # not sure if it's only for Linux. If it is, that will be fixed soon
+
 clientNumber = 0
 
 def get_input(player: int, game: Game):
