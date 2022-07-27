@@ -100,7 +100,10 @@ def check_win_x(board):
         board[0][2] == board[1][1] == board[2][0] == HUMAN
     return cols or rows or diags
 
-def game_over(board, players):
+def game_over(board):
+    return check_win_o(board) or check_win_x(board)
+
+def game_over_multi(board, players):
     return check_win(board, players[0]) or check_win(board, players[1])
 
 def evaluate(board):
