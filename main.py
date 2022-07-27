@@ -138,7 +138,7 @@ if __name__ == "__main__":
             elif diff == -1:
                 ask_exit_eng()
             single_player_input(diff)
-            ask_exit()
+            ask_exit_eng()
         else:
             input("Incorrect mode! Try again...")
     
