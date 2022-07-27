@@ -10,17 +10,11 @@ from tictactoe import *
 from client import *
 from game import Game, State
 
-# board = [[0]*3 for _ in range(3)] # no client-side board allowed
-
-def ask_exit(code: int=0):
-    input("Нажмите Enter чтобы выйти...") # dull input to prevent from instant exit
-    exit(code)
-
 def ask_exit_eng(code: int=0):
     input("Press Enter to exit...")
     exit(code)
 
-def single_player_input(difficulty): # Used for single player, so disabled for this branch until the end
+def single_player_input(difficulty):
     board = [[0]*3 for _ in range(3)]
     while True:
         try:
@@ -29,7 +23,7 @@ def single_player_input(difficulty): # Used for single player, so disabled for t
 
             if xw or ow:
                 clr_scr()
-                txt = "x Победил!" if xw else "o Победил!"
+                txt = "x Won!" if xw else "o Won!"
                 frq = 700 if xw else 400
                 render_mtx(board)
                 print(txt)
@@ -39,7 +33,7 @@ def single_player_input(difficulty): # Used for single player, so disabled for t
             if len(empty_cells(board)) == 0 and not game_over(board):
                 clr_scr()
                 render_mtx(board)
-                print("Ничья!")
+                print("Tie!")
                 print('\a')
                 break
             
@@ -47,9 +41,9 @@ def single_player_input(difficulty): # Used for single player, so disabled for t
 
             clr_scr()
             render_mtx(board)
-            print("Вы играете за 'x'\n")
-            x = int(input("Выберите столбец (1-3): ")) - 1
-            y = int(input("Выберите строку (1-3): ")) - 1
+            print("You are 'x'\n")
+            x = int(input("Choose column (1-3): ")) - 1
+            y = int(input("Choose row (1-3): ")) - 1
             
             if not set_move(board, HUMAN, x, y):
                 raise ValueError
@@ -57,7 +51,7 @@ def single_player_input(difficulty): # Used for single player, so disabled for t
             ai_output(board, difficulty)
         except ValueError or IndexError:
             clr_scr()
-            print("Это был неправильный ход. Попробуйте еще раз!")
+            print("Incorrect move! Try again...")
             input()
 
 clientNumber = 0
@@ -142,7 +136,7 @@ if __name__ == "__main__":
                 input("Incorrect difficulty! Try again...")
                 continue
             elif diff == -1:
-                ask_exit()
+                ask_exit_eng()
             single_player_input(diff)
             ask_exit()
         else:
