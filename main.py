@@ -16,6 +16,10 @@ def ask_exit(code: int=0):
     input("Нажмите Enter чтобы выйти...") # dull input to prevent from instant exit
     exit(code)
 
+def ask_exit_eng(code: int=0):
+    input("Press Enter to exit...")
+    exit(code)
+
 """def single_player_input(difficulty): # Used for single player, so disabled for this branch until the end
     while True:
         try:
@@ -94,6 +98,7 @@ def get_input(player: int, game: Game):
 if __name__ == "__main__":
     n = Network("localhost", 8080)
     player = int(n.get_player())
+    clr_scr()
     print("You are", sf_multi(player))
     print("Wait for your turn...")
     ended = False   
@@ -102,7 +107,7 @@ if __name__ == "__main__":
             game: Game = n.send("get")
         except:
             print("Couldn't get game")
-            exit(-1)
+            ask_exit_eng(-1)
         
         if game.turn == player:
             state = game.getstate()
@@ -138,3 +143,4 @@ if __name__ == "__main__":
                 ended = True
                 continue
             print("Waiting for other player...")
+    ask_exit_eng()

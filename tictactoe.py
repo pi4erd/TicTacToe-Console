@@ -1,6 +1,7 @@
 import os
 from math import inf as infinity
 from random import choice, randint
+import platform
 
 AI = 2
 HUMAN = 1
@@ -46,7 +47,12 @@ def render_mtx_multiplayer(m):
 {sf_multi(m[0][2])}|{sf_multi(m[1][2])}|{sf_multi(m[2][2])}
 """)
 def clr_scr():
-    os.system("clear")
+    if platform.system() == "Linux":
+        os.system("clear")
+    elif platform.system() == "Windows":
+        os.system("cls")
+    else:
+        raise NotImplementedError("Current platform '{}' is not supported yet".format(platform.system()))
 def ai_output(board, difficulty):
     depth = len(empty_cells(board))
     if depth == 0 or game_over(board):
