@@ -135,7 +135,10 @@ if __name__ == "__main__":
             ask_exit_eng()
         elif mode == "single":
             clr_scr()
-            diff = int(input("Please, write difficulty (0-3): "))
+            try:
+                diff = int(input("Please, write difficulty (0-3): "))
+            except ValueError:
+                diff = None
             if not diff in DIFFICULTIES and diff != -1:
                 clr_scr()
                 input("Incorrect difficulty! Try again...")
