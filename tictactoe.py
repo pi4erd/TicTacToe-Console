@@ -51,6 +51,8 @@ def clr_scr():
         os.system("clear")
     elif platform.system() == "Windows":
         os.system("cls")
+    elif platform.system() == "Darwin":
+        os.system("clear")
     else:
         raise NotImplementedError("Current platform '{}' is not supported yet".format(platform.system()))
 def ai_output(board, difficulty):
