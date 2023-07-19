@@ -1,10 +1,14 @@
+# TicTacToe in Console/Terminal
+
+**This project is archived and no more changes will be pushed onto this repository! Though, feel free to copy anything you want.**
+
 # Use
 
-## Just use python or something
+This program doesn't have any dependencies so it is possible to run even without virtual environment.
 
-Well, my current python version is 3.9.9 sooo
+Tested python versions: 3.9.X 3.10.X
 
-I guess it will work on most 3.x versions of python
+Run `python3 main.py`, choose your mode and you're up and running!
 
 # Thanks
 
